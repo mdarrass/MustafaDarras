@@ -90,13 +90,25 @@
             <li
     class="jw-menu-item jw-menu-is-active"
 >
-        <a
+        
+<a
         class="jw-menu-link jw-menu-is-active"
         href="edu.html"
                                             
                             >
                 <span class="">
             Education        </span>
+            </a>
+                </li>
+
+
+<a
+        class="jw-menu-link jw-menu-is-active"
+        href="projects.html"
+                                            
+                            >
+                <span class="">
+            Projects        </span>
             </a>
                 </li>
             <li
@@ -487,7 +499,318 @@
         class="jw-tree-node jw-element jw-text jw-node-is-first-child"
 >
     
-  
+<style>
+            /* Chatbot Styles */
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: "Georgia", serif;
+                background-color: #f8f8f8;
+            }
+
+            /* Chatbot Icon */
+            .chatbot-icon {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                background-image: url('hero.jpg');
+                background-size: cover;
+                background-position: center;
+                border: 2px solid #eaeaea;
+                border-radius: 50%;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+                z-index: 1000;
+            }
+
+            /* AI Flair Badge */
+            .chatbot-icon::after {
+                content: "AI";
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background-color: #1a1a1a;
+                color: white;
+                font-size: 12px;
+                font-weight: bold;
+                padding: 3px 6px;
+                border-radius: 12px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                z-index: 1001;
+            }
+
+            /* Chatbot Container */
+            .chat-bot-container {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 350px;
+                height: 500px;
+                background: #ffffff;
+                border: 1px solid #eaeaea;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                display: none;
+                flex-direction: column;
+                z-index: 1001;
+            }
+
+            /* Chat Header */
+            .chat-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                background: #1a1a1a;
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .chat-header button {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 22px;
+                cursor: pointer;
+            }
+
+            /* Chat Box */
+            .chat-box {
+                flex-grow: 1;
+                padding: 10px 15px;
+                overflow-y: auto;
+                background: #f9f9f9;
+            }
+
+            /* Messages */
+            .message {
+                display: inline-block;
+                max-width: 75%;
+                border-radius: 15px;
+                padding: 10px 15px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                line-height: 1.6;
+                word-wrap: break-word;
+            }
+
+            .person-a {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+
+            .person-a img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                margin-right: 10px;
+                border: 1px solid #eaeaea;
+            }
+
+            .person-a .message {
+                background: #eef3fc;
+                color: #333;
+                border: 1px solid #dcdcdc;
+            }
+
+            .person-b {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 15px;
+            }
+
+            .person-b .message {
+                background: #1a1a1a;
+                color: #ffffff;
+                border: 1px solid #333;
+                text-align: right;
+            }
+
+            /* Input Container */
+            .input-container {
+                display: flex;
+                padding: 10px;
+                background: #ffffff;
+                border-top: 1px solid #eaeaea;
+            }
+
+            .input-container input {
+                flex-grow: 1;
+                padding: 10px;
+                border-radius: 20px;
+                border: 1px solid #dcdcdc;
+                font-size: 14px;
+                outline: none;
+                transition: border-color 0.3s;
+                font-family: "Georgia", serif;
+            }
+
+            .input-container input:focus {
+                border-color: #1a1a1a;
+            }
+
+            .input-container button {
+                margin-left: 10px;
+                padding: 10px 15px;
+                border-radius: 20px;
+                border: none;
+                background: #1a1a1a;
+                color: white;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .input-container button:hover {
+                background: #333;
+            }
+
+            @media (max-width: 768px) {
+                .chat-bot-container {
+                    width: 90%;
+                    bottom: 20px;
+                    right: 5%;
+                    height: 400px;
+                    border-radius: 10px;
+                }
+            }
+
+
+
+
+</style>
+<!-- Chatbot Icon -->
+        <div class="chatbot-icon" id="chatbot-icon"></div>
+
+        <!-- Chatbot Container -->
+        <div class="chat-bot-container" id="chat-bot">
+            <div class="chat-header">
+                <span>AI Assistant</span>
+                <button id="close-chatbot">&times;</button>
+            </div>
+            <div class="chat-box" id="chat-box">
+                <!-- Messages will go here -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type a message...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+
+        <script>
+            const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatBot = document.getElementById('chat-bot');
+            const closeChatbot = document.getElementById('close-chatbot');
+            const chatBox = document.getElementById('chat-box');
+            const sendButton = document.getElementById('send-button');
+            const userInput = document.getElementById('user-input');
+
+            const backendUrl = 'https://mdarras.pythonanywhere.com';
+
+            chatbotIcon.addEventListener('click', () => {
+                chatBot.style.display = 'flex';
+                chatbotIcon.style.display = 'none';
+            });
+
+            closeChatbot.addEventListener('click', () => {
+                chatBot.style.display = 'none';
+                chatbotIcon.style.display = 'block';
+            });
+
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    userInput.value = '';
+
+                    addTypingIndicator();
+
+                    fetch(`${backendUrl}/chat`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: message }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            removeTypingIndicator();
+                            if (data.response) {
+                                addMessage(data.response, false);
+                            } else if (data.error) {
+                                addMessage(`Error: ${data.error}`, false);
+                            }
+                        })
+                        .catch(() => {
+                            removeTypingIndicator();
+                            addMessage('Error: Unable to communicate with the server.', false);
+                        });
+                }
+            }
+
+            function addMessage(message, isUser) {
+                const messageContainer = document.createElement('div');
+                messageContainer.className = isUser ? 'person-b' : 'person-a';
+
+                if (!isUser) {
+                    const botImage = document.createElement('img');
+                    botImage.src = 'hero.jpg';
+                    botImage.alt = 'AI';
+                    messageContainer.appendChild(botImage);
+                }
+
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                messageElement.textContent = message;
+
+                messageContainer.appendChild(messageElement);
+                chatBox.appendChild(messageContainer);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            function addTypingIndicator() {
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'person-a';
+                typingIndicator.id = 'typing-indicator';
+
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                messageElement.textContent = 'Typing...';
+
+                typingIndicator.appendChild(messageElement);
+                chatBox.appendChild(typingIndicator);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) chatBox.removeChild(typingIndicator);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch(`${backendUrl}/initial_message`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.response) {
+                            addMessage(data.response, false);
+                        }
+                    })
+                    .catch(() => {
+                        addMessage('Error: Unable to load initial message.', false);
+                    });
+            });
+        </script>
 </index>
     </div>
 <footer class="block-footer">
@@ -531,5 +854,9 @@
 <script src="https://assets.jwwb.nl/assets/website-rendering/runtime.83873eca6f8ea0bbcded.js?bust=967d40bf7c81bb2096a3" nonce="f5fca5d8991627cb2cc4665e57008a78"></script>
 <script src="https://assets.jwwb.nl/assets/website-rendering/166.5a795a088a6b10acf59e.js?bust=d6e2cf922a8a672c588d" nonce="f5fca5d8991627cb2cc4665e57008a78"></script>
 <script src="https://assets.jwwb.nl/assets/website-rendering/index.771eb34d07e711590d95.js?bust=5e271750ef1770517f01" nonce="f5fca5d8991627cb2cc4665e57008a78"></script>
-<script nonce="f5fca5d8991627cb2cc4665e57008a78">Unsafe.authorized();</script>    </body>
+<script nonce="f5fca5d8991627cb2cc4665e57008a78">Unsafe.authorized();</script>
+
+
+
+</body>
 </html>
